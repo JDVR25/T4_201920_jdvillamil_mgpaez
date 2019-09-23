@@ -1,6 +1,6 @@
 package model.logic;
 
-public class UBERTrip implements Comparable<UBERTrip>
+public class TravelTime implements Comparable<TravelTime>
 {
 	private int idZonaOrigen;
 
@@ -16,7 +16,7 @@ public class UBERTrip implements Comparable<UBERTrip>
 
 	private double desviacionEstandarTGeometrico;
 
-	public UBERTrip(int sourceID, int dsTID, int hour, double travelTime, double travelTimeDeviation,
+	public TravelTime(int sourceID, int dsTID, int hour, double travelTime, double travelTimeDeviation,
 			double geometricTime, double geometricDeviation)
 	{
 		idZonaOrigen = sourceID;
@@ -70,7 +70,7 @@ public class UBERTrip implements Comparable<UBERTrip>
 	}
 
 	@Override
-	public int compareTo(UBERTrip o) {
+	public int compareTo(TravelTime o) {
 		int respuesta = 0;
 		if(tiempoPromedioViaje > o.darTiempoViaje())
 		{

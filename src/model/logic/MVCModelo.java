@@ -17,14 +17,14 @@ public class MVCModelo {
 	/**
 	 * Atributos del modelo del mundo
 	 */
-	private ListaSencillamenteEncadenada<UBERTrip> horas;
+	private ListaSencillamenteEncadenada<TravelTime> horas;
 
 	/**
 	 * Constructor del modelo del mundo con capacidad predefinida
 	 */
 	public MVCModelo()
 	{
-		horas = new ListaSencillamenteEncadenada<UBERTrip>();
+		horas = new ListaSencillamenteEncadenada<TravelTime>();
 	}
 
 	public void cargarDatos()
@@ -37,7 +37,7 @@ public class MVCModelo {
 			{
 				try
 				{
-					UBERTrip nuevo = new UBERTrip(Integer.parseInt(param[0]), Integer.parseInt(param[1]), 
+					TravelTime nuevo = new TravelTime(Integer.parseInt(param[0]), Integer.parseInt(param[1]), 
 							Integer.parseInt(param[2]), Double.parseDouble(param[3]), Double.parseDouble(param[4]),
 							Double.parseDouble(param[5]), Double.parseDouble(param[6]));
 					horas.addLast(nuevo);
@@ -75,21 +75,21 @@ public class MVCModelo {
 		return horas.size();
 	}
 
-	public UBERTrip darPrimerViaje()
+	public TravelTime darPrimerViaje()
 	{
 		return horas.getFirst();
 	}
 
-	public UBERTrip darUltimoViaje()
+	public TravelTime darUltimoViaje()
 	{
 		return horas.getLast();
 	}
 
-	public ListaSencillamenteEncadenada<UBERTrip> consultarViajesSegunHora(int hour)
+	public ListaSencillamenteEncadenada<TravelTime> consultarViajesSegunHora(int hour)
 	{
-		ListaSencillamenteEncadenada<UBERTrip> respuesta = new ListaSencillamenteEncadenada<UBERTrip>();
+		ListaSencillamenteEncadenada<TravelTime> respuesta = new ListaSencillamenteEncadenada<TravelTime>();
 
-		for(UBERTrip temp: horas)
+		for(TravelTime temp: horas)
 		{
 			if(temp.darHoraOMesODia() == hour && temp.darIDOrigen() == 4 && temp.darIdDestino() == 5)
 			{
@@ -100,7 +100,7 @@ public class MVCModelo {
 		return respuesta;
 	}
 
-	public double ordenarShellSort(ListaSencillamenteEncadenada<UBERTrip> lista)
+	public double ordenarShellSort(ListaSencillamenteEncadenada<TravelTime> lista)
 	{
 		double tiempo = 0;
 		//Medicion del tiempo
@@ -118,11 +118,11 @@ public class MVCModelo {
 				boolean listo = false;
 				for(int j = i; j >= n && !listo; j -=n)
 				{
-					Nodo<UBERTrip> nodo1 = lista.darNodo(j);
-					Nodo<UBERTrip> nodo2 = lista.darNodo(j-n);
+					Nodo<TravelTime> nodo1 = lista.darNodo(j);
+					Nodo<TravelTime> nodo2 = lista.darNodo(j-n);
 					if(nodo1.darElemento().compareTo(nodo2.darElemento()) < 0)
 					{
-						UBERTrip temp = nodo1.darElemento();
+						TravelTime temp = nodo1.darElemento();
 						nodo1.cambiarElemento(nodo2.darElemento());
 						nodo2.cambiarElemento(temp);
 					}
@@ -140,7 +140,7 @@ public class MVCModelo {
 		return tiempo;
 	}
 
-	public double ordenarMergeSort(ListaSencillamenteEncadenada<UBERTrip> lista)
+	public double ordenarMergeSort(ListaSencillamenteEncadenada<TravelTime> lista)
 	{
 		double tiempo = 0;
 		//Creacion del arreglo a ordenar, no cuenta como tiempo de ordenamiento
@@ -154,10 +154,10 @@ public class MVCModelo {
 
 		long tFinal = System.currentTimeMillis();
 		//Guardado del arreglo ordenado, no cuenta como tiempo de ordenamiento
-		Nodo<UBERTrip> temp = lista.darNodo(0);
+		Nodo<TravelTime> temp = lista.darNodo(0);
 		for(int i = 0; i < arreglo.length; i++)
 		{
-			temp.cambiarElemento((UBERTrip) arreglo[i]);
+			temp.cambiarElemento((TravelTime) arreglo[i]);
 			temp = temp.darSiguiente();
 		}
 		tiempo = tFinal - tInicial;
@@ -180,7 +180,7 @@ public class MVCModelo {
 		
 		for(int i = inicio; i <= last; i++)
 		{
-			aux[i] = (UBERTrip) arreglo[i];
+			aux[i] = (TravelTime) arreglo[i];
 		}
 		
 		int i = inicio;
@@ -197,7 +197,7 @@ public class MVCModelo {
 				arreglo[pos] = aux[i];
 				i++;
 			}
-			else if(((UBERTrip) aux[i]).compareTo((UBERTrip) aux[l]) < 0)
+			else if(((TravelTime) aux[i]).compareTo((TravelTime) aux[l]) < 0)
 			{
 				arreglo[pos] = aux[i];
 				i++;
@@ -210,7 +210,7 @@ public class MVCModelo {
 		}
 	}
 
-	public double ordenarQuickSort(ListaSencillamenteEncadenada<UBERTrip> lista)
+	public double ordenarQuickSort(ListaSencillamenteEncadenada<TravelTime> lista)
 	{
 		double tiempo = 0;
 		//Medicion del tiempo
@@ -224,7 +224,7 @@ public class MVCModelo {
 		return tiempo;
 	}
 	
-	public void quickSort(ListaSencillamenteEncadenada<UBERTrip> lista, int inicio, int end)
+	public void quickSort(ListaSencillamenteEncadenada<TravelTime> lista, int inicio, int end)
 	{
 		 if (inicio < end)
 		    {
@@ -235,7 +235,7 @@ public class MVCModelo {
 		    }
 	}
 	
-	public int sort(ListaSencillamenteEncadenada<UBERTrip> lista, int inicio, int end) 
+	public int sort(ListaSencillamenteEncadenada<TravelTime> lista, int inicio, int end) 
     { 
         int pivot = end;  
         int i = (inicio-1); // index of smaller element 
@@ -245,7 +245,7 @@ public class MVCModelo {
             { 
                 i++; 
   
-                UBERTrip temp = lista.get(i) ; 
+                TravelTime temp = lista.get(i) ; 
                 lista.add(i, temp);
                 lista.add(j, lista.get(j));
                 
