@@ -5,7 +5,7 @@ import java.util.Scanner;
 import model.data_structures.ListaSencillamenteEncadenada;
 import model.data_structures.Nodo;
 import model.logic.MVCModelo;
-import model.logic.UBERTrip;
+import model.logic.TravelTime;
 import view.MVCView;
 
 public class Controller {
@@ -16,7 +16,7 @@ public class Controller {
 	/* Instancia de la Vista*/
 	private MVCView view;
 
-	private ListaSencillamenteEncadenada<UBERTrip> viajesConsultados;
+	private ListaSencillamenteEncadenada<TravelTime> viajesConsultados;
 
 	/**
 	 * Crear la vista y el modelo del proyecto
@@ -47,8 +47,8 @@ public class Controller {
 				modelo.cargarDatos();
 				System.out.println("Datos cargados");
 				System.out.println("Numero de viajes cargados: " + modelo.darNumViajes() );
-				UBERTrip primero = modelo.darPrimerViaje(); 
-				UBERTrip ultimo = modelo.darUltimoViaje();
+				TravelTime primero = modelo.darPrimerViaje(); 
+				TravelTime ultimo = modelo.darUltimoViaje();
 				System.out.println("Datos primer viaje: " + primero.darIDOrigen() + ", " + primero.darIdDestino() + ", " + primero.darHoraOMesODia() + ", " + primero.darTiempoViaje());
 				System.out.println("Datos primer viaje: " + ultimo.darIDOrigen() + ", " + ultimo.darIdDestino() + ", " + ultimo.darHoraOMesODia() + ", " + ultimo.darTiempoViaje());
 				break;
@@ -85,7 +85,7 @@ public class Controller {
 				{
 					double tiempo = modelo.ordenarShellSort(viajesConsultados);
 					System.out.println("Viajes ordenados, duracion: " + tiempo);
-					Nodo<UBERTrip> primeros = viajesConsultados.darNodo(0);
+					Nodo<TravelTime> primeros = viajesConsultados.darNodo(0);
 					for(int i = 0; i < 10 && i< viajesConsultados.size(); i++)
 					{
 						System.out.println(primeros.darElemento().darIDOrigen() + ", " + primeros.darElemento().darIdDestino() + ", " + primeros.darElemento().darHoraOMesODia() + ", " + primeros.darElemento().darTiempoViaje());
@@ -93,7 +93,7 @@ public class Controller {
 					}
 					try
 					{
-						Nodo<UBERTrip> ultimos = viajesConsultados.darNodo(viajesConsultados.size() - 10);
+						Nodo<TravelTime> ultimos = viajesConsultados.darNodo(viajesConsultados.size() - 10);
 						System.out.println(".");
 						System.out.println(".");
 						System.out.println(".");
@@ -121,7 +121,7 @@ public class Controller {
 				{
 					double tiempo = modelo.ordenarMergeSort(viajesConsultados);
 					System.out.println("Viajes ordenados, duracion: " + tiempo);
-					Nodo<UBERTrip> primeros = viajesConsultados.darNodo(0);
+					Nodo<TravelTime> primeros = viajesConsultados.darNodo(0);
 					for(int i = 0; i < 10 && i< viajesConsultados.size(); i++)
 					{
 						System.out.println(primeros.darElemento().darIDOrigen() + ", " + primeros.darElemento().darIdDestino() + ", " + primeros.darElemento().darHoraOMesODia() + ", " + primeros.darElemento().darTiempoViaje());
@@ -129,7 +129,7 @@ public class Controller {
 					}
 					try
 					{
-						Nodo<UBERTrip> ultimos = viajesConsultados.darNodo(viajesConsultados.size() - 10);
+						Nodo<TravelTime> ultimos = viajesConsultados.darNodo(viajesConsultados.size() - 10);
 						System.out.println(".");
 						System.out.println(".");
 						System.out.println(".");
@@ -157,7 +157,7 @@ public class Controller {
 				{
 					double tiempo = modelo.ordenarQuickSort(viajesConsultados);
 					System.out.println("Viajes ordenados, duracion: " + tiempo);
-					Nodo<UBERTrip> primeros = viajesConsultados.darNodo(0);
+					Nodo<TravelTime> primeros = viajesConsultados.darNodo(0);
 					for(int i = 0; i < 10 && i< viajesConsultados.size(); i++)
 					{
 						System.out.println(primeros.darElemento().darIDOrigen() + ", " + primeros.darElemento().darIdDestino() + ", " + primeros.darElemento().darHoraOMesODia() + ", " + primeros.darElemento().darTiempoViaje());
@@ -165,7 +165,7 @@ public class Controller {
 					}
 					try
 					{
-						Nodo<UBERTrip> ultimos = viajesConsultados.darNodo(viajesConsultados.size() - 10);
+						Nodo<TravelTime> ultimos = viajesConsultados.darNodo(viajesConsultados.size() - 10);
 						System.out.println(".");
 						System.out.println(".");
 						System.out.println(".");
