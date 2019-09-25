@@ -63,7 +63,7 @@ public class MaxHeapCP<T extends Comparable<T>>
 		elementos = temp;
 	}
 
-	public void sink(int pos)
+	private void sink(int pos)
 	{
 		int heap = pos+1;
 		boolean listo = false;
@@ -88,8 +88,23 @@ public class MaxHeapCP<T extends Comparable<T>>
 		}
 	}
 
-	public void swim(int pos)
+	private void swim(int pos)
 	{
-
+		int heap = pos+1;
+		boolean listo = false;
+		while(!listo && (int)(heap/2)-1 >= 0)
+		{
+			if(elementos[heap-1].compareTo(elementos[(heap/2)-1]) > 0)
+			{
+				T temp = elementos[heap-1];
+				elementos[heap-1] = elementos[(heap/2)-1];
+				elementos[(heap/2)-1] = temp;
+				heap = (heap/2);
+			}
+			else
+			{
+				listo = true;
+			}
+		}
 	}
 }
