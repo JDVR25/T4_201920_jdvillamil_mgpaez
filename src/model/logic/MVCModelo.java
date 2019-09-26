@@ -3,10 +3,12 @@ package model.logic;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Iterator;
 
 import com.opencsv.CSVReader;
 import model.data_structures.IEstructura;
 import model.data_structures.ListaSencillamenteEncadenada;
+import model.data_structures.MaxHeapCP;
 import model.data_structures.Nodo;
 
 /**
@@ -47,7 +49,7 @@ public class MVCModelo {
 
 				}
 			}
-			
+
 			reader = new CSVReader(new FileReader("./data/bogota-cadastral-2018-2-All-HourlyAggregate.csv"));
 			for(String[] param : reader)
 			{
@@ -116,159 +118,61 @@ public class MVCModelo {
 		return respuesta;
 	}
 
-	public double ordenarShellSort(ListaSencillamenteEncadenada<TravelTime> lista)
+	public ListaSencillamenteEncadenada<TravelTime> generarMuestra(int tamano)
 	{
-		double tiempo = 0;
-		//Medicion del tiempo
-		long tInicial = System.currentTimeMillis();
-
-		//Aqui poner el ordenamiento
-		int cantElementos = lista.size();
-		int n = 1;
-		while(n < cantElementos/3)
-			n = (3*n) +1;
-		while(n >= 1)
+		ListaSencillamenteEncadenada<TravelTime> lista = new ListaSencillamenteEncadenada<TravelTime>();
+		TravelTime[] tiempos = (TravelTime[]) horas.toArray();
+		int n = horas.size() - 1;
+		int indice = 0;
+		if(!horas.isEmpty())
 		{
-			for(int i = n; i < cantElementos; i++)
+			for(int i = 0; i < tamano; i++)
 			{
-				boolean listo = false;
-				for(int j = i; j >= n && !listo; j -=n)
+				indice = (int) (Math.random()*n);
+				TravelTime tiempo = tiempos[indice];
+				boolean yaEsta = false;
+				Iterator<TravelTime> it = lista.iterator();
+				while(it.hasNext() && !yaEsta)
 				{
-					Nodo<TravelTime> nodo1 = lista.darNodo(j);
-					Nodo<TravelTime> nodo2 = lista.darNodo(j-n);
-					if(nodo1.darElemento().compareTo(nodo2.darElemento()) < 0)
+					TravelTime temp = it.next(); 
+					if(temp.compareTo(tiempo) == 0)
 					{
-						TravelTime temp = nodo1.darElemento();
-						nodo1.cambiarElemento(nodo2.darElemento());
-						nodo2.cambiarElemento(temp);
-					}
-					else
-					{
-						listo = true;
+						yaEsta = true;
 					}
 				}
+				if(!yaEsta)
+				{
+					lista.addLast(tiempo);
+				}
 			}
-			n = (n-1)/3;
 		}
-
-		long tFinal = System.currentTimeMillis();
-		tiempo = tFinal - tInicial;
-		return tiempo;
+		return lista;
 	}
 
-	public double ordenarMergeSort(ListaSencillamenteEncadenada<TravelTime> lista)
+	public MaxColaCP<TravelTime> crearMaxColaCP (int hInicial, int hFinal)
 	{
-		double tiempo = 0;
-		//Creacion del arreglo a ordenar, no cuenta como tiempo de ordenamiento
-		Object[] arreglo = lista.toArray();
-		Object[] aux = new Object[lista.size()];
-		//Medicion del tiempo
-		long tInicial = System.currentTimeMillis();
-
-		//Aqui poner el ordenamiento
-		mergeSort(arreglo, aux, 0, lista.size() -1);
-
-		long tFinal = System.currentTimeMillis();
-		//Guardado del arreglo ordenado, no cuenta como tiempo de ordenamiento
-		Nodo<TravelTime> temp = lista.darNodo(0);
-		for(int i = 0; i < arreglo.length; i++)
+		MaxColaCP<TravelTime> respuesta = new MaxColaCP<TravelTime>();
+		for(TravelTime temp: horas)
 		{
-			temp.cambiarElemento((TravelTime) arreglo[i]);
-			temp = temp.darSiguiente();
+			if(temp.darHoraOMesODia() >= hInicial && temp.darHoraOMesODia() <= hFinal)
+			{
+				respuesta.agregar(temp);
+			}
 		}
-		tiempo = tFinal - tInicial;
-		return tiempo;
+		return respuesta;
 	}
-	
-	public void mergeSort(Object[] arreglo, Object[] aux, int inicio, int last)
+
+	public MaxHeapCP<TravelTime> crearMaxHeapCP (int hInicial, int hFinal)
 	{
-		if(inicio < last)
+		MaxHeapCP<TravelTime> respuesta = new MaxHeapCP<TravelTime>();
+		for(TravelTime temp: horas)
 		{
-			int mitad = (inicio + last) / 2;
-			mergeSort(arreglo, aux, inicio, mitad);
-			mergeSort(arreglo, aux, mitad + 1, last);
-			merge(arreglo, aux, inicio, mitad, last);
-		}
-	}
-	
-	public void merge(Object[] arreglo, Object[] aux, int inicio, int midle, int last)
-	{
-		
-		for(int i = inicio; i <= last; i++)
-		{
-			aux[i] = (TravelTime) arreglo[i];
-		}
-		
-		int i = inicio;
-		int l = midle+1;
-		for(int pos = inicio; pos <= last; pos++)
-		{
-			if(i > midle)
+			if(temp.darHoraOMesODia() >= hInicial && temp.darHoraOMesODia() <= hFinal)
 			{
-				arreglo[pos] = aux[l];
-				l++;
-			}
-			else if(l > last)
-			{
-				arreglo[pos] = aux[i];
-				i++;
-			}
-			else if(((TravelTime) aux[i]).compareTo((TravelTime) aux[l]) < 0)
-			{
-				arreglo[pos] = aux[i];
-				i++;
-			}
-			else
-			{
-				arreglo[pos] = aux[l];
-				l++;
+				respuesta.agregar(temp);
 			}
 		}
+		return respuesta;
 	}
-
-	public double ordenarQuickSort(ListaSencillamenteEncadenada<TravelTime> lista)
-	{
-		double tiempo = 0;
-		//Medicion del tiempo
-		long tInicial = System.currentTimeMillis();
-
-		quickSort(lista, 0, lista.size()-1);
-		//Aqui poner el ordenamiento
-
-		long tFinal = System.currentTimeMillis();
-		tiempo = tFinal - tInicial;
-		return tiempo;
-	}
-	
-	public void quickSort(ListaSencillamenteEncadenada<TravelTime> lista, int inicio, int end)
-	{
-		 if (inicio < end)
-		    {
-		        int sort = sort(lista, inicio, end);
-
-		        quickSort(lista, inicio, sort - 1);  
-		        quickSort(lista, sort + 1, end); 
-		    }
-	}
-	
-	public int sort(ListaSencillamenteEncadenada<TravelTime> lista, int inicio, int end) 
-    { 
-        int pivot = end;  
-        int i = (inicio-1); // index of smaller element 
-        for (int j=inicio; j<end; j++) 
-        { 
-            if (lista.get(j).compareTo(lista.get(pivot)) >= 0) 
-            { 
-                i++; 
-  
-                TravelTime temp = lista.get(i) ; 
-                lista.add(i, temp);
-                lista.add(j, lista.get(j));
-                
-            } 
-        } 
-        return i +1; 
-    }
 }
-	
-	// Basado en codigo de geeksforgeekds
+

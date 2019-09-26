@@ -80,17 +80,6 @@ public class TravelTime implements Comparable<TravelTime>
 		{
 			respuesta = -1;
 		}
-		else if(tiempoPromedioViaje == o.darTiempoViaje())
-		{
-			if(desviacionEstandarTiempo > o.darDesviacionTiempo())
-			{
-				respuesta = 1;
-			}
-			if(desviacionEstandarTiempo < o.darDesviacionTiempo())
-			{
-				respuesta = -1;
-			}
-		}
 		return respuesta;
 	}
 }

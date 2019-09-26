@@ -16,7 +16,6 @@ public class Controller {
 	/* Instancia de la Vista*/
 	private MVCView view;
 
-	private ListaSencillamenteEncadenada<TravelTime> viajesConsultados;
 
 	/**
 	 * Crear la vista y el modelo del proyecto
@@ -26,7 +25,6 @@ public class Controller {
 	{
 		view = new MVCView();
 		modelo = new MVCModelo();
-		viajesConsultados = new ListaSencillamenteEncadenada<>();
 	}
 
 	public void run() 
@@ -54,136 +52,30 @@ public class Controller {
 				break;
 
 			case 2:
-				System.out.println("--------- \nInserte una hora a consultar: ");
+				System.out.println("--------- \nSe realizara una prueba con 200000 datos");
 				dato = lector.next();
-				try
-				{
-					int hour = Integer.parseInt(dato);
-					if(hour >= 0 && hour <= 24)
-					{
-						viajesConsultados = modelo.consultarViajesSegunHora(hour);
-						System.out.println("Viajes consultados, numero de resultados: " + viajesConsultados.size());
-					}
-					else
-					{
-						System.out.println("Hora invalida");
-					}
-				}
-				catch(NumberFormatException e)
-				{
-					System.out.println("Debe ingresar la hora como un numero");
-				}
+				
 				break;
 
 			case 3:
-				System.out.println("--------- \nSe ordenaran los viajes usando ShellSort: ");
-				if(viajesConsultados.isEmpty())
+				System.out.println("--------- \nIngrese la cantidad de tiempos que desea consultar");
+				dato = lector.next();
+				try
 				{
-					System.out.println("Debe realizar primero una consulta de viajes segun la hora");
+					int n = Integer.parseInt(dato);
+					ListaSencillamenteEncadenada<TravelTime> muestra = modelo.generarMuestra(n);
+					double tiempo = 0;
+					long tInicial = System.currentTimeMillis();
+					long tFinal = System.currentTimeMillis();
+					tiempo = tFinal - tInicial;
 				}
-				else
+				catch(NumberFormatException e)
 				{
-					double tiempo = modelo.ordenarShellSort(viajesConsultados);
-					System.out.println("Viajes ordenados, duracion: " + tiempo);
-					Nodo<TravelTime> primeros = viajesConsultados.darNodo(0);
-					for(int i = 0; i < 10 && i< viajesConsultados.size(); i++)
-					{
-						System.out.println(primeros.darElemento().darIDOrigen() + ", " + primeros.darElemento().darIdDestino() + ", " + primeros.darElemento().darHoraOMesODia() + ", " + primeros.darElemento().darTiempoViaje());
-						primeros = primeros.darSiguiente();
-					}
-					try
-					{
-						Nodo<TravelTime> ultimos = viajesConsultados.darNodo(viajesConsultados.size() - 10);
-						System.out.println(".");
-						System.out.println(".");
-						System.out.println(".");
-						for(int i = 0; i < 10 && i< viajesConsultados.size(); i++)
-						{
-							System.out.println(ultimos.darElemento().darIDOrigen() + ", " + ultimos.darElemento().darIdDestino() + ", " + ultimos.darElemento().darHoraOMesODia() + ", " + ultimos.darElemento().darTiempoViaje());
-							ultimos = ultimos.darSiguiente();
-						}
-					}
-					catch(IndexOutOfBoundsException e)
-					{
-
-					}
-
+					System.out.println("Debe ingresar los datos como numeros enteros");
 				}
 				break;
 
 			case 4: 
-				System.out.println("--------- \nSe ordenaran los viajes usando MergeSort: ");
-				if(viajesConsultados.isEmpty())
-				{
-					System.out.println("Debe realizar primero una consulta de viajes segun la hora");
-				}
-				else
-				{
-					double tiempo = modelo.ordenarMergeSort(viajesConsultados);
-					System.out.println("Viajes ordenados, duracion: " + tiempo);
-					Nodo<TravelTime> primeros = viajesConsultados.darNodo(0);
-					for(int i = 0; i < 10 && i< viajesConsultados.size(); i++)
-					{
-						System.out.println(primeros.darElemento().darIDOrigen() + ", " + primeros.darElemento().darIdDestino() + ", " + primeros.darElemento().darHoraOMesODia() + ", " + primeros.darElemento().darTiempoViaje());
-						primeros = primeros.darSiguiente();
-					}
-					try
-					{
-						Nodo<TravelTime> ultimos = viajesConsultados.darNodo(viajesConsultados.size() - 10);
-						System.out.println(".");
-						System.out.println(".");
-						System.out.println(".");
-						for(int i = 0; i < 10 && i< viajesConsultados.size(); i++)
-						{
-							System.out.println(ultimos.darElemento().darIDOrigen() + ", " + ultimos.darElemento().darIdDestino() + ", " + ultimos.darElemento().darHoraOMesODia() + ", " + ultimos.darElemento().darTiempoViaje());
-							ultimos = ultimos.darSiguiente();
-						}
-					}
-					catch(IndexOutOfBoundsException e)
-					{
-
-					}
-
-				}
-				break;
-
-			case 5: 
-				System.out.println("--------- \nSe ordenaran los viajes usando QuickSort: ");
-				if(viajesConsultados.isEmpty())
-				{
-					System.out.println("Debe realizar primero una consulta de viajes segun la hora");
-				}
-				else
-				{
-					double tiempo = modelo.ordenarQuickSort(viajesConsultados);
-					System.out.println("Viajes ordenados, duracion: " + tiempo);
-					Nodo<TravelTime> primeros = viajesConsultados.darNodo(0);
-					for(int i = 0; i < 10 && i< viajesConsultados.size(); i++)
-					{
-						System.out.println(primeros.darElemento().darIDOrigen() + ", " + primeros.darElemento().darIdDestino() + ", " + primeros.darElemento().darHoraOMesODia() + ", " + primeros.darElemento().darTiempoViaje());
-						primeros = primeros.darSiguiente();
-					}
-					try
-					{
-						Nodo<TravelTime> ultimos = viajesConsultados.darNodo(viajesConsultados.size() - 10);
-						System.out.println(".");
-						System.out.println(".");
-						System.out.println(".");
-						for(int i = 0; i < 10 && i< viajesConsultados.size(); i++)
-						{
-							System.out.println(ultimos.darElemento().darIDOrigen() + ", " + ultimos.darElemento().darIdDestino() + ", " + ultimos.darElemento().darHoraOMesODia() + ", " + ultimos.darElemento().darTiempoViaje());
-							ultimos = ultimos.darSiguiente();
-						}
-					}
-					catch(IndexOutOfBoundsException e)
-					{
-
-					}
-
-				}
-				break;
-
-			case 6: 
 				System.out.println("--------- \n Hasta pronto !! \n---------"); 
 				lector.close();
 				fin = true;

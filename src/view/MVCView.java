@@ -15,11 +15,9 @@ public class MVCView
 		public void printMenu()
 		{
 			System.out.println("1. Cargar los viajes de UBER");
-			System.out.println("2. Consultar viajes segun hora");
-			System.out.println("3. Ordenar los viajes consultados con ShellSort");
-			System.out.println("4. Ordenar los viajes consultados con MergeSort");
-			System.out.println("5. Ordenar los viajes consultados con QuickSort");
-			System.out.println("6. Exit");
+			System.out.println("2. Prueba con 200000 datos");
+			System.out.println("3. Consultar tiempos de viaje promedios mas largos en un rango de horas");
+			System.out.println("4. Exit");
 			System.out.println("Dar el numero de opcion a resolver, luego oprimir tecla Return: (e.g., 1):");
 		}
 
@@ -32,4 +30,5 @@ public class MVCView
 		{
 			// TODO implementar
 		}
+		
 }
