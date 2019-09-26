@@ -32,6 +32,22 @@ public class MVCModelo {
 		CSVReader reader = null;
 		try 
 		{
+			reader = new CSVReader(new FileReader("./data/bogota-cadastral-2018-1-All-HourlyAggregate.csv"));
+			for(String[] param : reader)
+			{
+				try
+				{
+					TravelTime nuevo = new TravelTime(Integer.parseInt(param[0]), Integer.parseInt(param[1]), 
+							Integer.parseInt(param[2]), Double.parseDouble(param[3]), Double.parseDouble(param[4]),
+							Double.parseDouble(param[5]), Double.parseDouble(param[6]));
+					horas.addLast(nuevo);
+				}
+				catch(NumberFormatException e)
+				{
+
+				}
+			}
+			
 			reader = new CSVReader(new FileReader("./data/bogota-cadastral-2018-2-All-HourlyAggregate.csv"));
 			for(String[] param : reader)
 			{
