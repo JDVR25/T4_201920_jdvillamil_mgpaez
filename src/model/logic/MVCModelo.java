@@ -8,6 +8,7 @@ import java.util.Iterator;
 import com.opencsv.CSVReader;
 import model.data_structures.IEstructura;
 import model.data_structures.ListaSencillamenteEncadenada;
+import model.data_structures.MaxColaCP;
 import model.data_structures.MaxHeapCP;
 import model.data_structures.Nodo;
 
@@ -174,52 +175,5 @@ public class MVCModelo {
 		}
 		return respuesta;
 	}
-<<<<<<< HEAD
-=======
-
-	public double ordenarQuickSort(ListaSencillamenteEncadenada<TravelTime> lista)
-	{
-		double tiempo = 0;
-		//Medicion del tiempo
-		long tInicial = System.currentTimeMillis();
-
-		quickSort(lista, 0, lista.size()-1);
-		//Aqui poner el ordenamiento
-
-		long tFinal = System.currentTimeMillis();
-		tiempo = tFinal - tInicial;
-		return tiempo;
-	}
-	
-	public void quickSort(ListaSencillamenteEncadenada<TravelTime> lista, int inicio, int end)
-	{
-		 if (inicio < end)
-		    {
-		        int sort = sort(lista, inicio, end);
-
-		        quickSort(lista, inicio, sort - 1);  
-		        quickSort(lista, sort + 1, end); 
-		    }
-	}
-	
-	public int sort(ListaSencillamenteEncadenada<TravelTime> lista, int inicio, int end) 
-    { 
-        int pivot = end;  
-        int i = (inicio-1); // index of smaller element 
-        for (int j=inicio; j<end; j++) 
-        { 
-            if (lista.get(j).compareTo(lista.get(pivot)) >= 0) 
-            { 
-                i++; 
-  
-                TravelTime temp = lista.get(i) ; 
-                lista.add(i, temp);
-                lista.add(j, lista.get(j));
-                
-            } 
-        } 
-        return i + 1; 
-    }
->>>>>>> 3ea0ef6014fa16b6a58b69e9a263d1310e4c3b56
 }
 
